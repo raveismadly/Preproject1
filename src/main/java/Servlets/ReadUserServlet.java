@@ -1,6 +1,6 @@
 package Servlets;
 
-import Service.Service;
+import Service.ServiceImpl;
 import User.User;
 
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ReadUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            List<User> list=new Service().getAllUser();
+            List<User> list=new ServiceImpl().getAllUser();
             req.setAttribute("allUsers",list);
             req.getRequestDispatcher("WEB-INF/jsp/read.jsp").forward(req, resp);
 

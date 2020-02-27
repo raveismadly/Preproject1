@@ -1,6 +1,6 @@
 package Servlets;
 
-import Service.Service;
+import Service.ServiceImpl;
 import User.User;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ public class DeleteUserServlet extends HttpServlet {
         Long reqId = Long.parseLong(req.getParameter("id"));
         User user = null;
         try {
-            user = new Service().getUserById(reqId);
+            user = new ServiceImpl().getUserById(reqId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -32,7 +32,7 @@ public class DeleteUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long id=Long.parseLong(req.getParameter("id"));
         try {
-            new Service().deleteUser(id);
+            new ServiceImpl().deleteUser(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

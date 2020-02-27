@@ -1,6 +1,6 @@
 package Servlets;
 
-import Service.Service;
+import Service.ServiceImpl;
 import User.User;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class UpdateUserServlet extends HttpServlet {
         Long id = Long.parseLong(req.getParameter("id"));
         User haveThisUser = null;
         try {
-            haveThisUser = new Service().getUserById(id);
+            haveThisUser = new ServiceImpl().getUserById(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,7 +33,7 @@ public class UpdateUserServlet extends HttpServlet {
         String updatedSurname = req.getParameter("surname");
         Integer updatedAge = Integer.parseInt(req.getParameter("age"));
         if (updatedName != null && updatedSurname != null && updatedAge != null) {
-            new Service().updateUser(new User(id, updatedName, updatedSurname, updatedAge));
+            new ServiceImpl().updateUser(new User(id, updatedName, updatedSurname, updatedAge));
             resp.sendRedirect("read");
         }
 

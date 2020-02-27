@@ -1,6 +1,6 @@
 package Servlets;
 
-import Service.Service;
+import Service.ServiceImpl;
 import User.User;
 
 import javax.servlet.ServletException;
@@ -23,7 +23,7 @@ public class CreateUserServlet extends HttpServlet {
         String surname = req.getParameter("surname");
         Integer age = Integer.parseInt(req.getParameter("age"));
         if (name != null && surname != null && age != null) {
-            new Service().addUser(new User(name, surname, age));
+            new ServiceImpl().addUser(new User(name, surname, age));
         }
     }
 }
