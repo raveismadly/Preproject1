@@ -11,7 +11,7 @@
 <%--    <a href="create">Create</a>--%>
 <%--    &nbsp;&nbsp;&nbsp;--%>
 <%--    <a href="read">Read</a>--%>
-<%--    <jsp:useBean id="user" scope="request" type="model.User"/>--%>
+<%--    <jsp:useBean id="user" scope="request" type="User.User"/>--%>
 <%--    <form method="POST">--%>
 <%--        <table border="1" cellpadding="5">--%>
 <%--            <caption>--%>
