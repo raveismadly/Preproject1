@@ -43,7 +43,7 @@
 
     <a href="create">Create   </a>
     <a href="read">  Read</a>
-    <jsp:useBean id="user" scope="request" type="model.User" />
+    <jsp:useBean id="user" scope="request" type="User.User" />
     <form name="delete" method="post">
         <table>
             <c:if test="${user != null}">
