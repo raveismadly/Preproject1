@@ -1,0 +1,43 @@
+
+В сервисе не должны создаваться в каждом метода dao. Это лютый оверхэд. Дао должен быть полем сервиса и создаваться единожды
+[preproject1] src/main/java/Service/UserService.java (Line 11)
+ return new UserDAO().getAllUsers();
+Posted via CodeStream
+4:49
+то же самое. сервис это поле сервлета. создается единожды, при создании сервлета
+[preproject1] src/main/java/Servlets/CreateUserServlet.java (Line 28)
+ew UserService().addUser(new User(reqName, reqSurname, reqAge)
+Posted via CodeStream
+4:54
+такая штука во всех сервлетах - поправь
+[preproject1] src/main/java/Servlets/UpdateUserServlet.java (Line 40)
+ew UserService().updateUser(new User(id, reqUpdateName, reqUpdateSurname, reqUpdateAge));
+Posted via CodeStream
+4:54
+
+это делается иначе:
+создай в ресурсах файл с расширением properties и перенеси в него все одержимое этих строк
+затем в пакете util создай класс PropertyReader с единственным статическим методом readProperty,
+который принимает название проперти и отдает её значение, прочитанное из проперти файла
+[preproject1] src/main/java/UserDAO/UserDAO.java (Lines 10-13)
+private String jdbcURL = "jdbc:mysql://localhost:3306/demo?serverTimezone=UTC";
+    private String jdbcUsername = "root";
+    private String jdbcPassword = "admin";
+Posted via CodeStream
+5:00
+на все методы, которые вносят изменения в базу сделай транзакции
+[preproject1] src/main/java/UserDAO/UserDAO.java (Lines 68-80)
+boolean updated;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
+           // preparedStatement.setLong(1, user.getId());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setInt(3, user.getAge());
+            preparedStatement.setLong(4, user.getId());
+
+            // preparedStatement.executeUpdate();
+            updated = preparedStatement.executeUpdate() > 0;
+        }
+        return updated;
+

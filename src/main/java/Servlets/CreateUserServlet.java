@@ -1,9 +1,8 @@
 package Servlets;
 
-import Service.UserService;
-import User.User;
+import Service.Service;
+import model.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,18 +14,16 @@ import java.io.IOException;
 public class CreateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/create.jsp");
-        requestDispatcher.forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/jsp/create.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String reqName = req.getParameter("name");
-        String reqSurname = req.getParameter("surname");
-        Integer reqAge = Integer.parseInt(req.getParameter("age"));
-        if (reqName != null && reqSurname != null && reqAge != null) {
-            new UserService().addUser(new User(reqName, reqSurname, reqAge));
-            resp.sendRedirect("read");
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        Integer age = Integer.parseInt(req.getParameter("age"));
+        if (name != null && surname != null && age != null) {
+            new Service().addUser(new User(name, surname, age));
         }
     }
 }
