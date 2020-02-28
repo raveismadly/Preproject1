@@ -43,7 +43,10 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
-            preparedStatement.executeUpdate();
+//            preparedStatement.executeUpdate();
+            if(setAutoCommit(preparedStatement.executeUpdate() > 0)){
+                 preparedStatement.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,7 +78,8 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
             preparedStatement.setLong(4, user.getId());
-            updated = preparedStatement.executeUpdate() > 0;
+//            updated = preparedStatement.executeUpdate() > 0;
+            setAutoCommit(updated = preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,12 +88,15 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean deleteUser(Long id) throws SQLException {
-        boolean deleted;
+        boolean deleted = false;
         try (
              PreparedStatement preparedStatement =
                      connection.prepareStatement("DELETE FROM users  WHERE id = ?")) {
             preparedStatement.setLong(1, id);
-            deleted = preparedStatement.executeUpdate() > 0;
+            setAutoCommit(deleted = preparedStatement.executeUpdate() > 0);
+                //deleted = preparedStatement.executeUpdate() > 0;
+            //}
+
         }
         return deleted;
     }
@@ -111,6 +118,9 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
         return list;
+    }
+    public boolean setAutoCommit(boolean bol){
+        return bol;
     }
 
 }
