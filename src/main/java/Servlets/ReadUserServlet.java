@@ -13,11 +13,13 @@ import java.util.List;
 
 @WebServlet("/read")
 public class ReadUserServlet extends HttpServlet {
+    ServiceImpl service = ServiceImpl.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            List<User> list=new ServiceImpl().getAllUser();
-            req.setAttribute("allUsers",list);
-            req.getRequestDispatcher("WEB-INF/jsp/read.jsp").forward(req, resp);
+        List<User> list = service.getAllUser();
+        req.setAttribute("allUsers", list);
+        req.getRequestDispatcher("WEB-INF/jsp/read.jsp").forward(req, resp);
 
     }
 

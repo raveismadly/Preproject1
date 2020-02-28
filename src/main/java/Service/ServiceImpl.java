@@ -1,6 +1,7 @@
 package Service;
 
 import User.User;
+import UserDAO.UserDAO;
 import UserDAO.UserDAOImpl;
 import util.DBHelper;
 
@@ -8,27 +9,40 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ServiceImpl implements Service {
-    protected DBHelper dbHelper;
+   // protected DBHelper dbHelper;
+    private static ServiceImpl serviceImpl;
+    private static  UserDAO userDAO;
 
-    private UserDAOImpl dao = new UserDAO.UserDAOImpl(dbHelper.getConnection());
+    //private UserDAOImpl dao = new UserDAOImpl(dbHelper.getConnection());
+
+    public ServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public static ServiceImpl getInstance() {
+        if (serviceImpl == null) {
+            serviceImpl = new ServiceImpl(new UserDAOImpl(DBHelper.getConnection()));
+        }
+        return serviceImpl;
+    }
 
     public void addUser(User user) {
-        dao.addUser(user);
+        userDAO.addUser(user);
     }
 
     public boolean deleteUser(Long id) throws SQLException {
-        return dao.deleteUser(id);
+        return userDAO.deleteUser(id);
     }
 
     public List<User> getAllUser() {
-        return dao.getAllUser();
+        return userDAO.getAllUser();
     }
 
     public User getUserById(Long id) throws SQLException {
-        return dao.getUserById(id);
+        return userDAO.getUserById(id);
     }
 
     public boolean updateUser(User user) {
-        return dao.updateUser(user);
+        return userDAO.updateUser(user);
     }
 }

@@ -40,6 +40,7 @@ public class UserDAOImpl implements UserDAO {
     public void addUser(User user) {
         try (PreparedStatement
                      preparedStatement = connection.prepareStatement("INSERT INTO users (name, surname, age) VALUE(?,?,?) ")) {
+
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
@@ -118,7 +119,9 @@ public class UserDAOImpl implements UserDAO {
         return list;
     }
 
-    public boolean setAutoCommit(boolean bol) {
+    public boolean setAutoCommit(boolean bol) throws SQLException {
+        List<User> list = getAllUser();
+
         return bol;
     }
 

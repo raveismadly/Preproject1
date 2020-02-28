@@ -13,12 +13,14 @@ import java.sql.SQLException;
 
 @WebServlet("/update")
 public class UpdateUserServlet extends HttpServlet {
+    ServiceImpl service = ServiceImpl.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         User haveThisUser = null;
         try {
-            haveThisUser = new ServiceImpl().getUserById(id);
+            haveThisUser = service.getUserById(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -27,13 +29,13 @@ public class UpdateUserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         String updatedName = req.getParameter("name");
         String updatedSurname = req.getParameter("surname");
         Integer updatedAge = Integer.parseInt(req.getParameter("age"));
         if (updatedName != null && updatedSurname != null && updatedAge != null) {
-            new ServiceImpl().updateUser(new User(id, updatedName, updatedSurname, updatedAge));
+            service.updateUser(new User(id, updatedName, updatedSurname, updatedAge));
             resp.sendRedirect("read");
         }
 

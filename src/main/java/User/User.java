@@ -1,9 +1,15 @@
 package User;
 
+
+import com.sun.istack.internal.NotNull;
+
 public class User {
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
+    @NotNull
     private int age;
 
     public User() {
