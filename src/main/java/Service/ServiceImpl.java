@@ -2,13 +2,15 @@ package Service;
 
 import User.User;
 import UserDAO.UserDAOImpl;
+import util.DBHelper;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ServiceImpl implements Service {
+    DBHelper dbHelper;
 
-    private UserDAOImpl dao = new UserDAO.UserDAOImpl();
+    private UserDAOImpl dao = new UserDAO.UserDAOImpl(dbHelper.getConnection());
 
     public void addUser(User user) {
         dao.addUser(user);
