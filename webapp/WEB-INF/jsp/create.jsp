@@ -41,6 +41,7 @@
 <%--    </table>--%>
 <%--</div>--%>
 <%--</body>--%>
+<form method="post">
 <a href="read">Read</a>
     <table>
         <tr>
@@ -68,5 +69,6 @@
             </td>
         </tr>
     </table>
+</form>
 </body>
 </html>

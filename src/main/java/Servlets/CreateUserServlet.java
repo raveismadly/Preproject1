@@ -25,5 +25,6 @@ public class CreateUserServlet extends HttpServlet {
         if (name != null && surname != null && age != null) {
             new ServiceImpl().addUser(new User(name, surname, age));
         }
+        resp.sendRedirect("read");
     }
 }

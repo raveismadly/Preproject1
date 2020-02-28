@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ServiceImpl implements Service {
-    DBHelper dbHelper;
+    protected DBHelper dbHelper;
 
     private UserDAOImpl dao = new UserDAO.UserDAOImpl(dbHelper.getConnection());
 
