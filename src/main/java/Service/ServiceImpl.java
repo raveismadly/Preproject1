@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ServiceImpl implements Service {
-    UserDAOImpl dao = new UserDAOImpl();
+
+    private UserDAOImpl dao = new UserDAO.UserDAOImpl();
 
     public void addUser(User user) {
         dao.addUser(user);
