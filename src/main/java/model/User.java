@@ -1,4 +1,4 @@
-package User;
+package model;
 
 
 import com.sun.istack.internal.NotNull;

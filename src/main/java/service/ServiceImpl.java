@@ -1,8 +1,8 @@
-package Service;
+package service;
 
-import User.User;
-import UserDAO.UserDAO;
-import UserDAO.UserDAOImpl;
+import model.User;
+import dao.UserDAO;
+import dao.UserDAOImpl;
 import util.DBHelper;
 
 import java.sql.SQLException;

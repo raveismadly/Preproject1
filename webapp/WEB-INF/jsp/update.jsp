@@ -12,7 +12,7 @@
 <%--    <a href="create">Create</a>--%>
 <%--    &nbsp;&nbsp;&nbsp;--%>
 <%--    <a href="read">Read</a>--%>
-<%--    <jsp:useBean id="haveThisUser" scope="request" type="User.User"/>--%>
+<%--    <jsp:useBean id="haveThisUser" scope="request" type="model.model"/>--%>
 <%--    <c:if test="${haveThisUser != null}">--%>
 <%--    <form action="update" method="POST">--%>
 <%--        </c:if>--%>
@@ -57,7 +57,7 @@
 <%--</div>--%>
 <a href="create">Create</a>
 <a href="read">Read</a>
-<jsp:useBean id="haveThisUser" scope="request" type="User.User"/>
+<jsp:useBean id="haveThisUser" scope="request" type="model.User"/>
     <c:if test="${haveThisUser!=null}">
         <form action="update" METHOD="post">
     </c:if>
