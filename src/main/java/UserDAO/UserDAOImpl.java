@@ -40,14 +40,21 @@ public class UserDAOImpl implements UserDAO {
     public void addUser(User user) {
         try (PreparedStatement
                      preparedStatement = connection.prepareStatement("INSERT INTO users (name, surname, age) VALUE(?,?,?) ")) {
-
+            connection.setAutoCommit(false);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
             preparedStatement.executeUpdate();
-
+            connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+                connection.setAutoCommit(true);
+            } catch (SQLException ignore) {
+
+            }
         }
     }
 
@@ -72,15 +79,22 @@ public class UserDAOImpl implements UserDAO {
     public boolean updateUser(User user) {
         boolean updated = false;
         try (PreparedStatement
-                     preparedStatement = connection.prepareStatement("update users set name=?,surname=?,age=? where id=?")) {
+                     preparedStatement = connection.prepareStatement("update users set name=?,surname=?,age=? where id=?;")) {
+            connection.setAutoCommit(false);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
             preparedStatement.setLong(4, user.getId());
-//            updated = preparedStatement.executeUpdate() > 0;
-            setAutoCommit(updated = preparedStatement.executeUpdate() > 0);
+            updated = preparedStatement.executeUpdate() > 0;
+            connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+                connection.setAutoCommit(true);
+            } catch (SQLException ignore) {
+            }
         }
         return updated;
     }
@@ -90,12 +104,16 @@ public class UserDAOImpl implements UserDAO {
         boolean deleted = false;
         try (
                 PreparedStatement preparedStatement =
-                        connection.prepareStatement("DELETE FROM users  WHERE id = ?")) {
+                        connection.prepareStatement(" delete from users where id = ?;")) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
-            setAutoCommit(deleted = preparedStatement.executeUpdate() > 0);
-            //deleted = preparedStatement.executeUpdate() > 0;
-            //}
-
+            if (preparedStatement.executeUpdate() > 0) {
+                deleted = preparedStatement.executeUpdate() > 0;
+                connection.commit();
+            } else {
+                connection.rollback();
+            }
+            connection.setAutoCommit(true);
         }
         return deleted;
     }
@@ -118,11 +136,4 @@ public class UserDAOImpl implements UserDAO {
         }
         return list;
     }
-
-    public boolean setAutoCommit(boolean bol) throws SQLException {
-        List<User> list = getAllUser();
-
-        return bol;
-    }
-
 }

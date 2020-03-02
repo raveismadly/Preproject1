@@ -42,7 +42,7 @@ public class ServiceImpl implements Service {
         return userDAO.getUserById(id);
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(User user) throws SQLException {
         return userDAO.updateUser(user);
     }
 }

@@ -35,7 +35,11 @@ public class UpdateUserServlet extends HttpServlet {
         String updatedSurname = req.getParameter("surname");
         Integer updatedAge = Integer.parseInt(req.getParameter("age"));
         if (updatedName != null && updatedSurname != null && updatedAge != null) {
-            service.updateUser(new User(id, updatedName, updatedSurname, updatedAge));
+            try {
+                service.updateUser(new User(id, updatedName, updatedSurname, updatedAge));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             resp.sendRedirect("read");
         }
 
