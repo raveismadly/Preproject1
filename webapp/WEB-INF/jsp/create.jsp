@@ -7,40 +7,7 @@
 </head>
 <body>
 
-<%--<div align="center">--%>
-<%--    <a href="read">Read</a>--%>
-<%--    <table border="1" cellpadding="5">--%>
-<%--        <caption>--%>
-<%--            Create--%>
-<%--        </caption>--%>
-<%--        <form method="POST">--%>
-<%--            <tr>--%>
-<%--                <th>Name</th>--%>
-<%--                <td>--%>
-<%--                    <input type="text" name="name" size="45"/>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <th>Surname</th>--%>
-<%--                <td>--%>
-<%--                    <input type="text" name="surname" size="45"/>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <th>Age</th>--%>
-<%--                <td>--%>
-<%--                    <input type="number" name="age" size="45"/>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td colspan="2" align="center">--%>
-<%--                    <input type="submit" value="Submit">--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--        </form>--%>
-<%--    </table>--%>
-<%--</div>--%>
-<%--</body>--%>
+
 <form method="post">
 <a href="read">Read</a>
     <table>
