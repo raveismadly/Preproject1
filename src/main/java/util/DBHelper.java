@@ -32,7 +32,7 @@ public class DBHelper {
 
         if (connection == null) {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
